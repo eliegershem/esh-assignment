@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: frontend:latest
+    environment:
+      - BACKEND_URL=http://localhost:5000/api/v1
+      - FRONTEND_PORT=3000
+    networks:
+      - services_network
+    ports:
+      - "3000:3000"
+
+  backend:
+    image: backend:latest
+    environment:
+      - API_BASE=/api/v1
+      - MESSAGE_CONTENT=Hello, World!
+    networks:
+      - services_network
+    ports:
+      - "5000:5000" 
+
+  # todo; remove after debug
+  ubuntu:
+    image: ubuntu:latest
+    networks:
+      - services_network
+    command: ["sleep", "99000000000"] 
+
+networks:
+  services_network:
