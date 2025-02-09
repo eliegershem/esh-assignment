@@ -34,8 +34,8 @@ Simple integration between a Node.js frontend and Flask backend using Docker con
 3. **Access Services**
    - Frontend: http://localhost:8080
    - Backend API: http://localhost:5000/api/v1
-   - Prometheus: http://localhost:8080
-   - Grafana: http://localhost:5000/api/v1
+   - Prometheus: http://localhost:9090
+   - Grafana: http://localhost:3000/
 
 ### Environment Setup
 Create `.env` files in respective directories:
