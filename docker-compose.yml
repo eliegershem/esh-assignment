@@ -1,15 +1,17 @@
 version: '3.8'
 
 services:
+
+  # Application services
   frontend:
     image: frontend:latest
     environment:
       - BACKEND_URL=http://localhost:5000/api/v1
-      - FRONTEND_PORT=3000
+      - FRONTEND_PORT=8080
     networks:
       - services_network
     ports:
-      - "3000:3000"
+      - "8080:8080"
 
   backend:
     image: backend:latest
@@ -21,12 +23,37 @@ services:
     ports:
       - "5000:5000" 
 
-  # todo; remove after debug
-  ubuntu:
-    image: ubuntu:latest
+  # Monitoring stack
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
     networks:
       - services_network
-    command: ["sleep", "99000000000"] 
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    networks:
+      - services_network
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+volumes:
+  prom_data:
 
 networks:
   services_network:
