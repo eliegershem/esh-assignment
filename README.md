@@ -8,6 +8,7 @@ Simple integration between a Node.js frontend and Flask backend using Docker con
 - **Backend**: Flask API server providing JSON responses
 - **Docker**: Container orchestration with dedicated network for service communication
 - **Configuration**: Environment variables for flexible deployment settings
+- **Monitoring**: Prometheus-Grafana stack deployed with configured Prometheus scrape_configs and Grafana dashboards
 
 ## Requirements
 
@@ -34,24 +35,6 @@ Simple integration between a Node.js frontend and Flask backend using Docker con
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000/api/v1
 
-## Local Development
-
-1. **Backend**
-   ```bash
-   cd backend
-   python -m venv venv
-   source venv/bin/activate  # Windows: .\venv\Scripts\activate
-   pip install -r requirements.txt
-   python app.py
-   ```
-
-2. **Frontend**
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-
 ### Environment Setup
 Create `.env` files in respective directories:
 
@@ -73,13 +56,13 @@ MESSAGE_CONTENT=Hello, World!
 - **API Unreachable**: Verify CORS configuration and port mappings
 - **Container Issues**: Check logs (`docker-compose logs <service-name>`)
 
-For detailed debugging:
+For simple debugging:
 ```bash
 # Check container status
 docker-compose ps
 
-# View logs
-docker-compose logs <service-name>
+# Test FronEnd (or use browser instead)
+curl http://localhost:8080/
 
 # Test API
 curl http://localhost:5000/api/v1
