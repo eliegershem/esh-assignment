@@ -55,6 +55,8 @@ MESSAGE_CONTENT=Hello, World!
 - **Connection Refused**: Check if containers are running (`docker-compose ps`)
 - **API Unreachable**: Verify CORS configuration and port mappings
 - **Container Issues**: Check logs (`docker-compose logs <service-name>`)
+- **Prometheus UI**: Browse to http://localhost:9090/targets
+- **Grafana Dashboards**: Browse to http://localhost:3000/ (`credentials: admin:grafana`)
 
 For simple debugging:
 ```bash
